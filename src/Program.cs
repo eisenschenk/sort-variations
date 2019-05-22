@@ -39,7 +39,6 @@ namespace SortVariations
             WriteList(Elements);
             Elements = Unsorted.ToList();
 
-
             Elements = QuickSort.QuickSortMain(Elements);
             WriteList(Elements);
             Elements = Unsorted.ToList();
