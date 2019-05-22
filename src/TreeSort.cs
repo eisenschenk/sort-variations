@@ -8,13 +8,13 @@ namespace SortVariations
 {
     class TreeSort
     {
-       public class branch
+        public class branch
         {
-           public int Branchvalue;
-           public branch smaller;
-           public branch larger ;
+            public int Branchvalue;
+            public branch smaller;
+            public branch larger;
 
-           
+
 
 
             public void insert(int value)
@@ -34,41 +34,48 @@ namespace SortVariations
                     larger.insert(value);
                 }
             }
-            
 
+            public void sort(List<int> TreeSorted)
+            {
+                if (Branchvalue == 0)
+                {
+                    return;
+                }
+                smaller.sort(TreeSorted);
+                TreeSorted.Add(Branchvalue);
+                larger.sort(TreeSorted);
+
+            }
         }
-        public static List<int> SortSmaller(branch TreeStart)
+        public static List<int> SortTree(branch TreeStart, List<int> TreeSorted)
         {
-            List<int> TreeSorted = new List<int>();
-            branch TreeTest = new branch();
-            if (TreeStart.smaller != null)
-            {
-                SortSmaller(TreeStart.smaller);
-            }
-            else if (TreeStart.Branchvalue != 0)
-            {
-                TreeSorted.Add(TreeStart.Branchvalue);
-            }
-             if (TreeStart.larger != null)
-            {
-                SortSmaller(TreeStart.larger);
-            }
 
+
+            if (TreeStart.smaller.Branchvalue != 0)
+            {
+                SortTree(TreeStart.smaller, TreeSorted);
+            }
+            TreeSorted.Add(TreeStart.Branchvalue);
+            if (TreeStart.larger.Branchvalue != 0)
+            {
+                SortTree(TreeStart.larger, TreeSorted);
+            }           
             return TreeSorted;
-           
+
         }
-        
+
         public static List<int> TreeSortMain(List<int> Elements)
         {
             branch TreeStart = new branch();
-            List<int> SortedElements = new List<int>();
+            List<int> TreeSorted = new List<int>(Elements.Count);
             for (int index = 0; index < Elements.Count; index++)
             {
                 TreeStart.insert(Elements[index]);
             }
-           return SortSmaller(TreeStart);
-          //return Elements = Sorte(TreeStart);
-          //  return null;
+            //TreeStart.sort(TreeSorted);
+            ////return TreeSorted;
+            return Elements = SortTree(TreeStart, TreeSorted);
+
         }
 
     }
